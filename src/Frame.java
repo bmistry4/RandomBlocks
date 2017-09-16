@@ -29,6 +29,11 @@ public class Frame extends JFrame {
 		}
 	}
 	
+	/**
+	 * Creates list of blocks of random sizes and positions with the given quantity
+	 * @param quantity Total number of blocks that want to be generated
+	 * @return
+	 */
 	public List<Block> generateBlocks(int quantity){
 		Random random = new Random();
 		List<Block> blocksList = new ArrayList<Block>();
@@ -45,13 +50,13 @@ public class Frame extends JFrame {
 	
 	public void paint(Graphics g){
 		super.paint(g);
-//		Block b1 = new Block(100, 100, 50, 50);
-//		Block b2 = new Block(110, 90, 30, 30);
-//		blockList.clear();
-//		blockList.add(b1);
-//		blockList.add(b2);
-//		b1.setColor(Color.BLUE);
-//		b2.setColor(Color.GREEN);
+		Block b1 = new Block(100, 100, 50, 50);
+		Block b2 = new Block(110, 140, 30, 30);
+		blockList.clear();
+		blockList.add(b1);
+		blockList.add(b2);
+		b1.setColor(Color.BLUE);
+		b2.setColor(Color.GREEN);
 		
 		for(Block block : this.blockList){
 //			block.move();
