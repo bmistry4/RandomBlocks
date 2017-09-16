@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +45,20 @@ public class Frame extends JFrame {
 	
 	public void paint(Graphics g){
 		super.paint(g);
+//		Block b1 = new Block(100, 100, 50, 50);
+//		Block b2 = new Block(110, 90, 30, 30);
+//		blockList.clear();
+//		blockList.add(b1);
+//		blockList.add(b2);
+//		b1.setColor(Color.BLUE);
+//		b2.setColor(Color.GREEN);
+		
 		for(Block block : this.blockList){
-			block.move();
+//			block.move();
 			block.inContact(blockList);
 			block.draw(g);
 		}
+
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
