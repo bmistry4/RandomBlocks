@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 public class Frame extends JFrame {
 	private List<Block> blockList;
+	protected static final int FRAMESIZE = 400;
 	
 	public Frame(){
 		super("Random Blocks Frame");
@@ -20,8 +21,7 @@ public class Frame extends JFrame {
 		
 		JPanel contentPane = new JPanel();
 		this.setContentPane(contentPane);
-		repaint();
-		this.setSize(400,400);
+		this.setSize(FRAMESIZE,FRAMESIZE);
 		this.setVisible(true);
 		
 		while(true){
@@ -39,21 +39,21 @@ public class Frame extends JFrame {
 		Random random = new Random();
 		List<Block> blocksList = new ArrayList<Block>();
 		
-//		Block b1 = new Block(100, 100, 50, 50);
+		Block b1 = new Block(100, 100, 50, 50);
 //		Block b2 = new Block(100, 100, 30, 30);
-//		blocksList.add(b1);
+		blocksList.add(b1);
 //		blocksList.add(b2);
-//		b1.setColor(Color.BLUE);
+		b1.setColor(Color.BLUE);
 //		b2.setColor(Color.GREEN);
 		
-		for(int i=0; i< quantity; i++){
-			int width = 20;
-			int height = 20;
-			int ranX = random.nextInt(300)+50;
-			int ranY = random.nextInt(300)+50;
-			Block b = new Block(ranX, ranY, width, height);
-			blocksList.add(b);
-		}
+//		for(int i=0; i< quantity; i++){
+//			int width = 20;
+//			int height = 20;
+//			int ranX = random.nextInt(300)+50;
+//			int ranY = random.nextInt(300)+50;
+//			Block b = new Block(ranX, ranY, width, height);
+//			blocksList.add(b);
+//		}
 		return blocksList;
 	}
 	
@@ -62,8 +62,8 @@ public class Frame extends JFrame {
 		
 		
 		for(Block block : this.blockList){
-//			block.move();
-			block.inContact(blockList);
+			block.move();
+//			block.inContact(blockList);
 			block.draw(g);
 		}
 

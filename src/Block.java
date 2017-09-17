@@ -32,11 +32,16 @@ public class Block extends Rectangle {
 	 * TODO - Change to Gaussian/ make more interesting
 	 */
 	public void move() {
-		int noiseX = random.nextInt(5) - 2;
-		int noiseY = random.nextInt(5) - 2;
+		int noise = 5;
+		int noiseX = random.nextInt(noise) - (noise/2);
+		int noiseY = random.nextInt(noise) - (noise/2);
 
-		this.x += noiseX;
-		this.y += noiseY;
+//		this.x += noiseX;
+//		this.y += noiseY;
+		
+		this.y -= 5;
+		
+		boundaryCheck(this.x, this.y);
 
 	}
 
@@ -76,17 +81,17 @@ public class Block extends Rectangle {
 	public void intersectionCoverage(Rectangle intersection) {
 		String generalPos = "";
 		if (Math.abs(this.y - intersection.getY()) < Math.abs(this.y + height - intersection.getY())) {
-			System.out.println(this + " TOP");
+//			System.out.println(this + " TOP");
 			generalPos += "T";
 		} else {
-			System.out.println(this + " BOTTOM");
+//			System.out.println(this + " BOTTOM");
 			generalPos += "B";
 		}
 		if (Math.abs(this.x - intersection.getX()) < Math.abs(this.x + width - intersection.getX())) {
-			System.out.println(this + " LEFT");
+//			System.out.println(this + " LEFT");
 			generalPos += "L";
 		} else {
-			System.out.println(this + " RIGHT");
+//			System.out.println(this + " RIGHT");
 			generalPos += "R";
 		}
 		moveAway(generalPos);
@@ -95,7 +100,7 @@ public class Block extends Rectangle {
 	public void moveAway(String interPos){
 		int xMove = 0;
 		int yMove = 0;
-		int noise = 30;
+		int noise = 5;
 		int ranPos = random.nextInt(noise)+1;
 		int ranNeg = random.nextInt(noise)-noise;
 		switch(interPos){
@@ -119,10 +124,23 @@ public class Block extends Rectangle {
 			default:
 				System.err.println("Invalid position description given");
 		}
-		
-		
 		this.x += xMove;
 		this.y += yMove;
+		boundaryCheck(this.x, this.y);
+	}
+	
+	public void boundaryCheck(int x, int y){
+		int boundaryOffset = 100;
+		if(x<=0){
+			this.x = boundaryOffset;
+		}else if(x+this.width >= Frame.FRAMESIZE){
+			this.x -= boundaryOffset;
+		// Need a way to calc the offset from the frame
+		}else if(y - 35 <= 0){
+			this.y = boundaryOffset;
+		}else if(y+ this.height >= Frame.FRAMESIZE){
+			this.y -= boundaryOffset;
+		}
 	}
 
 	public void setColor(Color colour) {
