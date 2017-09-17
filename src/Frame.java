@@ -16,7 +16,7 @@ public class Frame extends JFrame {
 	
 	public void init(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		blockList = generateBlocks(50);
+		blockList = generateBlocks(100);
 		
 		JPanel contentPane = new JPanel();
 		this.setContentPane(contentPane);
@@ -35,8 +35,17 @@ public class Frame extends JFrame {
 	 * @return
 	 */
 	public List<Block> generateBlocks(int quantity){
+		
 		Random random = new Random();
 		List<Block> blocksList = new ArrayList<Block>();
+		
+//		Block b1 = new Block(100, 100, 50, 50);
+//		Block b2 = new Block(100, 100, 30, 30);
+//		blocksList.add(b1);
+//		blocksList.add(b2);
+//		b1.setColor(Color.BLUE);
+//		b2.setColor(Color.GREEN);
+		
 		for(int i=0; i< quantity; i++){
 			int width = 20;
 			int height = 20;
@@ -50,13 +59,7 @@ public class Frame extends JFrame {
 	
 	public void paint(Graphics g){
 		super.paint(g);
-		Block b1 = new Block(100, 100, 50, 50);
-		Block b2 = new Block(110, 140, 30, 30);
-		blockList.clear();
-		blockList.add(b1);
-		blockList.add(b2);
-		b1.setColor(Color.BLUE);
-		b2.setColor(Color.GREEN);
+		
 		
 		for(Block block : this.blockList){
 //			block.move();
