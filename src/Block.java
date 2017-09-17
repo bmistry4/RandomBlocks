@@ -27,9 +27,9 @@ public class Block extends Rectangle {
 	}
 
 	/**
-	 * Random movement - for now between -2 to 3 TODO - Add constrainsts so
-	 * bounces off the frame edges TODO - Change to Gaussian/ make more
-	 * interesting
+	 * Random movement - for now between -2 to 3
+	 * TODO - Add constrainsts so bounces off the frame edges
+	 * TODO - Change to Gaussian/ make more interesting
 	 */
 	public void move() {
 		int noiseX = random.nextInt(5) - 2;
@@ -53,7 +53,7 @@ public class Block extends Rectangle {
 			if (this != block && this.intersects(block)) {
 				hasContact = true;
 				// Uncomment when not testing
-				// this.setColor(Color.BLUE);
+				 this.setColor(Color.BLUE);
 
 				// block.setColor(Color.BLUE);
 
@@ -64,7 +64,7 @@ public class Block extends Rectangle {
 		}
 		if (!hasContact) {
 			// Uncomment when not testing
-			// this.setColor(Color.BLACK);
+			 this.setColor(Color.BLACK);
 		}
 	}
 
@@ -99,7 +99,8 @@ public class Block extends Rectangle {
 		int ranPos = random.nextInt(noise)+1;
 		int ranNeg = random.nextInt(noise)-noise;
 		switch(interPos){
-			case("TL"):
+		// TL = intersection block at top left area of this block so need to move down and right	
+		case("TL"):
 				xMove = ranPos;
 				yMove = ranPos;;
 				break;
