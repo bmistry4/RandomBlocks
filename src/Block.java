@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +14,7 @@ public class Block extends Rectangle {
 	public Block(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.colour = Color.BLACK;
+		System.out.println(this);
 	}
 
 	/**
@@ -27,20 +29,19 @@ public class Block extends Rectangle {
 	}
 
 	/**
-	 * Random movement - for now between -2 to 3
-	 * TODO - Add constrainsts so bounces off the frame edges
-	 * TODO - Change to Gaussian/ make more interesting
+	 * Random movement 
 	 */
 	public void move() {
-		int noise = 5;
-		int noiseX = random.nextInt(noise) - (noise/2);
-		int noiseY = random.nextInt(noise) - (noise/2);
+		int noise = 1;
+//		int noiseX = random.nextInt(noise) - (noise/2);
+//		int noiseY = random.nextInt(noise) - (noise/2);
+		
+		double noiseX = random.nextGaussian()* noise;
+		double noiseY = random.nextGaussian()* noise;
 
-//		this.x += noiseX;
-//		this.y += noiseY;
-		
-		this.y -= 5;
-		
+		this.x += noiseX;
+		this.y += noiseY;
+				
 		boundaryCheck(this.x, this.y);
 
 	}
@@ -52,7 +53,7 @@ public class Block extends Rectangle {
 	 * @param blocks
 	 *            List of all blocks
 	 */
-	public void inContact(List<Block> blocks) {
+	public void inContact(HashSet<Block> blocks) {
 		boolean hasContact = false;
 		for (Block block : blocks) {
 			if (this != block && this.intersects(block)) {
@@ -129,8 +130,8 @@ public class Block extends Rectangle {
 		boundaryCheck(this.x, this.y);
 	}
 	
-	public void boundaryCheck(int x, int y){
-		int boundaryOffset = 100;
+	public void boundaryCheck(double x, double y){
+		int boundaryOffset = 20;
 		if(x<=0){
 			this.x = boundaryOffset;
 		}else if(x+this.width >= Frame.FRAMESIZE){
