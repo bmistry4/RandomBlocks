@@ -58,8 +58,6 @@ public class Block extends Rectangle {
 				// Uncomment when not testing
 				 this.setColor(Color.BLUE);
 
-				// block.setColor(Color.BLUE);
-
 				Rectangle intersectionBlock = (Rectangle) this.intersection(block);
 				intersectionCoverage(intersectionBlock);
 				// System.out.println(intersectionBlock);
@@ -72,7 +70,7 @@ public class Block extends Rectangle {
 	}
 
 	/**
-	 * Identifies which part of the block is covered the most
+	 * Identifies which part of the block is covered the most and moves the block accordingly
 	 * 
 	 * @param intersection
 	 */
@@ -95,6 +93,10 @@ public class Block extends Rectangle {
 		moveAway(generalPos);
 	}
 
+	/**
+	 * Moves blocks in the opposite position from the given parameter
+	 * @param interPos General position (corner) of the intersecting block
+	 */
 	protected void moveAway(String interPos){
 		int xMove = 0;
 		int yMove = 0;
@@ -127,6 +129,11 @@ public class Block extends Rectangle {
 		boundaryCheck(this.x, this.y);
 	}
 	
+	/**
+	 * Will check if the block is on any of the containers edges, and move the block away if so
+	 * @param x position of the block
+	 * @param y position of the block
+	 */
 	protected void boundaryCheck(double x, double y){
 		int boundaryOffset = 20;
 		if(x<=0){

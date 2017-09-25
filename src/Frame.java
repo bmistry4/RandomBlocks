@@ -31,6 +31,7 @@ public class Frame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 
+		// Constantly redraw all the blocks
 		while (true) {
 			mainPanel.repaint();
 		}
