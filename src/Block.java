@@ -11,14 +11,13 @@ public class Block extends Rectangle {
 	private Random random = new Random();
 	private Color colour;
 
-	public Block(int x, int y, int width, int height) {
+	protected Block(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.colour = Color.BLACK;
-		System.out.println(this);
 	}
 
 	/**
-	 * Simply colours a block
+	 * Colours a block
 	 * 
 	 * @param g
 	 *            Graphics param passed from the frame
@@ -29,19 +28,17 @@ public class Block extends Rectangle {
 	}
 
 	/**
-	 * Random movement 
+	 * Random movement via gaussian 
 	 */
-	public void move() {
-		int noise = 1;
+	protected void move() {
+		int noise = 8;
 //		int noiseX = random.nextInt(noise) - (noise/2);
 //		int noiseY = random.nextInt(noise) - (noise/2);
 		
-		double noiseX = random.nextGaussian()* noise;
-		double noiseY = random.nextGaussian()* noise;
-
+		double noiseX = random.nextGaussian()* noise + 0.1 ;
+		double noiseY = random.nextGaussian()* noise + 0.1 ;
 		this.x += noiseX;
 		this.y += noiseY;
-				
 		boundaryCheck(this.x, this.y);
 
 	}
@@ -53,7 +50,7 @@ public class Block extends Rectangle {
 	 * @param blocks
 	 *            List of all blocks
 	 */
-	public void inContact(HashSet<Block> blocks) {
+	protected void inContact(HashSet<Block> blocks) {
 		boolean hasContact = false;
 		for (Block block : blocks) {
 			if (this != block && this.intersects(block)) {
@@ -79,7 +76,7 @@ public class Block extends Rectangle {
 	 * 
 	 * @param intersection
 	 */
-	public void intersectionCoverage(Rectangle intersection) {
+	protected void intersectionCoverage(Rectangle intersection) {
 		String generalPos = "";
 		if (Math.abs(this.y - intersection.getY()) < Math.abs(this.y + height - intersection.getY())) {
 //			System.out.println(this + " TOP");
@@ -98,7 +95,7 @@ public class Block extends Rectangle {
 		moveAway(generalPos);
 	}
 
-	public void moveAway(String interPos){
+	protected void moveAway(String interPos){
 		int xMove = 0;
 		int yMove = 0;
 		int noise = 5;
@@ -130,25 +127,24 @@ public class Block extends Rectangle {
 		boundaryCheck(this.x, this.y);
 	}
 	
-	public void boundaryCheck(double x, double y){
+	protected void boundaryCheck(double x, double y){
 		int boundaryOffset = 20;
 		if(x<=0){
 			this.x = boundaryOffset;
-		}else if(x+this.width >= Frame.FRAMESIZE){
+		}else if(x+this.width >= MainPanel.getInstance().getWidth()){
 			this.x -= boundaryOffset;
-		// Need a way to calc the offset from the frame
-		}else if(y - 35 <= 0){
+		}else if(y <= 0){
 			this.y = boundaryOffset;
-		}else if(y+ this.height >= Frame.FRAMESIZE){
+		}else if(y+ this.height >= MainPanel.getInstance().getWidth()){
 			this.y -= boundaryOffset;
 		}
 	}
 
-	public void setColor(Color colour) {
+	protected void setColor(Color colour) {
 		this.colour = colour;
 	}
 
-	public Color getColor() {
+	protected Color getColor() {
 		return this.colour;
 	}
 
