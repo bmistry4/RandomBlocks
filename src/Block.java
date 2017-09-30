@@ -194,16 +194,25 @@ public class Block extends Rectangle  {
 		double yTotalDist = closestPoint.getY() - this.getCenterY();
 //		this.x = (int) closestPoint.getX();
 //		this.y = (int) closestPoint.getY();
-		for(int x= 1 ; x <= Math.abs(xTotalDist); x++){
-			for(int y= 1 ; y <= Math.abs(yTotalDist) ; y++){
-				this.x += x;
-				this.y += y;
-				xTotalDist -= x;
-				yTotalDist -= y;
-			}
-		}
-//		this.x += xTotalDist;
-//		this.y += yTotalDist;
+		
+//		int frameRate = 15;
+//		for(int x=0; x<= xTotalDist/frameRate; frameRate++){
+//				this.x += x;
+//		}
+//		for(int y=0; y<= yTotalDist/frameRate; frameRate++){
+//			this.y += y;
+//		}
+		
+//		for(int x= 1 ; x <= Math.abs(xTotalDist); x++){
+//			for(int y= 1 ; y <= Math.abs(yTotalDist) ; y++){
+//				this.x += x;
+//				this.y += y;
+//				xTotalDist -= x;
+//				yTotalDist -= y;
+//			}
+//		}
+		this.x += xTotalDist;
+		this.y += yTotalDist;
 		boundaryCheck(this.x, this.y);
 	}
 }

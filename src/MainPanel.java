@@ -80,7 +80,7 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g){
 		super.paint(g);
 		for(Block block : this.blockList){
-//			block.move();
+			block.move();
 //			block.inContact(blockList);
 			block.draw(g);
 		}
