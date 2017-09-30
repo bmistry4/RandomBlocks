@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashSet;
 import java.util.List;
@@ -7,13 +8,15 @@ import java.util.Random;
 
 import org.w3c.dom.css.Rect;
 
-public class Block extends Rectangle {
+public class Block extends Rectangle  {
 	private Random random = new Random();
 	private Color colour;
+	private Point closestPoint;
 
 	protected Block(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		this.colour = Color.BLACK;
+
 	}
 
 	/**
@@ -31,12 +34,12 @@ public class Block extends Rectangle {
 	 * Random movement via gaussian 
 	 */
 	protected void move() {
-		int noise = 8;
+		int noise = 1;
 //		int noiseX = random.nextInt(noise) - (noise/2);
 //		int noiseY = random.nextInt(noise) - (noise/2);
 		
-		double noiseX = random.nextGaussian()* noise + 0.1 ;
-		double noiseY = random.nextGaussian()* noise + 0.1 ;
+		double noiseX = random.nextGaussian()* noise + 0.5 ;
+		double noiseY = random.nextGaussian()* noise + 0.5 ;
 		this.x += noiseX;
 		this.y += noiseY;
 		boundaryCheck(this.x, this.y);
@@ -161,5 +164,46 @@ public class Block extends Rectangle {
 	 */
 	public String toString() {
 		return "x: " + this.x + " y: " + this.y + " height: " + this.height + " width: " + this.width;
+	}
+	
+	/**
+	 * 
+	 * @return closest position the block is to the circle
+	 */
+	public Point findClosestPoint(CirclePlot circle){
+		closestPoint = new Point(200,200);
+		double total, xDist, yDist;
+		double shortestDist = Integer.MAX_VALUE;
+		for(int i= 0 ; i< circle.getxPoints().length; i++){
+			xDist = Math.abs(this.getX() - circle.getxPoints()[i]);
+			yDist = Math.abs(this.getY() - circle.getyPoints()[i]);
+			total = xDist + yDist;
+			if(total < shortestDist){
+				shortestDist = total;
+				closestPoint.setLocation(circle.getxPoints()[i], circle.getyPoints()[i]);
+			}
+		}
+//		System.out.println("X: " + this.getCenterX() + "  " + closestPoint.getX());
+//		System.out.println("Y: " + this.getCenterY() + "  " + closestPoint.getY());
+		return closestPoint;
+	}
+	
+	// TODO - Make smooth transition work
+	public void moveToClosestPoint(){
+		double xTotalDist = closestPoint.getX() - this.getCenterX();
+		double yTotalDist = closestPoint.getY() - this.getCenterY();
+//		this.x = (int) closestPoint.getX();
+//		this.y = (int) closestPoint.getY();
+		for(int x= 1 ; x <= Math.abs(xTotalDist); x++){
+			for(int y= 1 ; y <= Math.abs(yTotalDist) ; y++){
+				this.x += x;
+				this.y += y;
+				xTotalDist -= x;
+				yTotalDist -= y;
+			}
+		}
+//		this.x += xTotalDist;
+//		this.y += yTotalDist;
+		boundaryCheck(this.x, this.y);
 	}
 }
